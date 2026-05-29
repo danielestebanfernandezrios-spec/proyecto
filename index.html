@@ -1,13 +1,865 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>satd</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SATD - Sistema de Alerta Temprana de Desbordamiento</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(180deg, #020817 0%, #07162f 45%, #020817 100%);
+      color: white;
+      min-height: 100vh;
+    }
+
+    /* ===== LOGIN SCREEN ===== */
+    .login-container {
+      display: none;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .login-container.active {
+      display: flex;
+    }
+
+    .login-box {
+      background: rgba(7, 17, 31, 0.9);
+      border: 1px solid rgba(34, 211, 238, 0.3);
+      border-radius: 30px;
+      padding: 40px;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 30px 120px rgba(0, 0, 0, 0.5);
+    }
+
+    .login-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .login-logo {
+      font-size: 60px;
+      margin-bottom: 15px;
+    }
+
+    .login-header h1 {
+      font-size: 24px;
+      font-weight: 900;
+      margin-bottom: 5px;
+    }
+
+    .login-header p {
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      color: rgba(34, 211, 238, 0.7);
+      text-transform: uppercase;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      color: rgba(148, 163, 184, 0.8);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 12px;
+      color: white;
+      font-size: 16px;
+      transition: all 0.3s;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: rgba(34, 211, 238, 0.6);
+      background: rgba(34, 211, 238, 0.05);
+    }
+
+    .form-group input::placeholder {
+      color: rgba(148, 163, 184, 0.4);
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #06b6d4, #0891b2);
+      border: none;
+      border-radius: 12px;
+      color: white;
+      font-weight: 900;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 10px;
+    }
+
+    .login-btn:hover {
+      box-shadow: 0 0 30px rgba(6, 182, 212, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .login-btn:active {
+      transform: translateY(0);
+    }
+
+    .error-message {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #fca5a5;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    .info-text {
+      text-align: center;
+      font-size: 12px;
+      color: rgba(148, 163, 184, 0.6);
+      margin-top: 20px;
+      line-height: 1.6;
+    }
+
+    .info-text strong {
+      color: rgba(34, 211, 238, 0.8);
+    }
+
+    /* ===== APP SCREEN ===== */
+    .app-container {
+      display: none;
+    }
+
+    .app-container.active {
+      display: block;
+    }
+
+    header {
+      background: rgba(9, 20, 39, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .header-left {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .logo {
+      width: 45px;
+      height: 45px;
+      background: rgba(34, 211, 238, 0.1);
+      border: 1px solid rgba(34, 211, 238, 0.3);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .header-title h1 {
+      font-size: 16px;
+      font-weight: 900;
+    }
+
+    .header-title p {
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      color: rgba(34, 211, 238, 0.6);
+      text-transform: uppercase;
+    }
+
+    .header-info {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .pill {
+      padding: 6px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 18px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .pill.alert-red {
+      border-color: rgba(239, 68, 68, 0.3);
+      background: rgba(239, 68, 68, 0.1);
+      color: #fca5a5;
+    }
+
+    .pill.alert-orange {
+      border-color: rgba(249, 115, 22, 0.3);
+      background: rgba(249, 115, 22, 0.1);
+      color: #fed7aa;
+    }
+
+    .pill.alert-yellow {
+      border-color: rgba(234, 179, 8, 0.3);
+      background: rgba(234, 179, 8, 0.1);
+      color: #fef08a;
+    }
+
+    .logout-btn {
+      padding: 6px 14px;
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #fca5a5;
+      border-radius: 18px;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .logout-btn:hover {
+      background: rgba(239, 68, 68, 0.2);
+    }
+
+    .content {
+      padding: 20px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: rgba(11, 21, 40, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 20px;
+    }
+
+    .card-title {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: rgba(148, 163, 184, 0.6);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .card h2 {
+      font-size: 24px;
+      font-weight: 900;
+      margin-bottom: 15px;
+    }
+
+    .level-display {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .level-number {
+      font-size: 48px;
+      font-weight: 900;
+      color: #22d3ee;
+      margin-bottom: 5px;
+    }
+
+    .level-label {
+      color: rgba(226, 232, 240, 0.6);
+      font-size: 12px;
+    }
+
+    .status-text {
+      font-size: 13px;
+      color: rgba(226, 232, 240, 0.7);
+      line-height: 1.6;
+    }
+
+    .button-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    button {
+      padding: 10px 14px;
+      border: none;
+      border-radius: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 12px;
+      transition: all 0.3s;
+    }
+
+    button:active {
+      transform: scale(0.95);
+    }
+
+    .btn-primary {
+      background: #06b6d4;
+      color: white;
+      grid-column: 1 / -1;
+    }
+
+    .btn-primary:hover {
+      background: #0891b2;
+    }
+
+    .btn-yellow {
+      background: rgba(234, 179, 8, 0.15);
+      color: #fef08a;
+      border: 1px solid rgba(234, 179, 8, 0.3);
+    }
+
+    .btn-yellow:hover {
+      background: rgba(234, 179, 8, 0.25);
+    }
+
+    .btn-orange {
+      background: rgba(249, 115, 22, 0.15);
+      color: #fed7aa;
+      border: 1px solid rgba(249, 115, 22, 0.3);
+    }
+
+    .btn-orange:hover {
+      background: rgba(249, 115, 22, 0.25);
+    }
+
+    .btn-red {
+      background: rgba(239, 68, 68, 0.15);
+      color: #fca5a5;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .btn-red:hover {
+      background: rgba(239, 68, 68, 0.25);
+    }
+
+    .chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 4px;
+      height: 100px;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(34, 211, 238, 0.1);
+      border-radius: 12px;
+      padding: 8px;
+      margin-top: 12px;
+    }
+
+    .bar {
+      flex: 1;
+      background: linear-gradient(to top, #06b6d4, #22d3ee);
+      border-radius: 2px;
+      min-height: 3px;
+    }
+
+    .alert-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .alert-item {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 10px;
+      font-size: 12px;
+    }
+
+    .alert-item-title {
+      font-weight: bold;
+      margin-bottom: 3px;
+    }
+
+    .alert-item-time {
+      color: rgba(148, 163, 184, 0.5);
+      font-size: 10px;
+    }
+
+    .sms-list {
+      margin-top: 15px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .sms-item {
+      background: rgba(34, 211, 238, 0.1);
+      border-left: 3px solid #06b6d4;
+      padding: 10px;
+      margin-bottom: 8px;
+      border-radius: 8px;
+      font-size: 11px;
+    }
+
+    .sms-phone {
+      font-weight: bold;
+      color: #22d3ee;
+    }
+
+    .sms-time {
+      color: rgba(148, 163, 184, 0.6);
+      font-size: 10px;
+      margin-top: 3px;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(6, 182, 212, 0.95);
+      border: 1px solid rgba(34, 211, 238, 0.5);
+      border-radius: 12px;
+      padding: 14px 18px;
+      color: white;
+      animation: slideIn 0.3s ease-out;
+      z-index: 2000;
+      font-size: 12px;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .dashboard {
+        grid-template-columns: 1fr;
+      }
+
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .header-info {
+        width: 100%;
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- LOGIN SCREEN -->
+  <div class="login-container active" id="loginScreen">
+    <div class="login-box">
+      <div class="login-header">
+        <div class="login-logo">🌊</div>
+        <h1>SATD</h1>
+        <p>Sistema de Alerta Temprana</p>
+      </div>
+
+      <div class="error-message" id="errorMsg"></div>
+
+      <div class="form-group">
+        <label>Número de teléfono</label>
+        <input
+          type="tel"
+          id="phone"
+          placeholder="Ej: 3171297528"
+          onkeypress="if(event.key==='Enter') login()"
+        >
+      </div>
+
+      <div class="form-group">
+        <label>Contraseña</label>
+        <input
+          type="password"
+          id="password"
+          placeholder="Ingresa tu número"
+          onkeypress="if(event.key==='Enter') login()"
+        >
+      </div>
+
+      <button class="login-btn" onclick="login()">Ingresar</button>
+
+      <div class="info-text">
+        <strong>Usuarios de prueba:</strong><br>
+        3171297528 | 3169128151 | 3052805449 | 3173869612<br>
+        Contraseña: el mismo número
+      </div>
+    </div>
+  </div>
+
+  <!-- APP SCREEN -->
+  <div class="app-container" id="appScreen">
+    <header>
+      <div class="header-left">
+        <div class="logo">🌊</div>
+        <div class="header-title">
+          <h1>SATD</h1>
+          <p>Sistema Activo</p>
+        </div>
+      </div>
+
+      <div class="header-info">
+        <div class="pill" id="userPill">Usuario activo</div>
+        <div class="pill" id="levelPill">Río 3.18 m</div>
+        <div class="pill alert-yellow" id="alertPill">Alerta Amarilla</div>
+        <button class="logout-btn" onclick="logout()">Cerrar sesión</button>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="dashboard">
+        <!-- CARD 1: MONITOREO -->
+        <div class="card">
+          <div class="card-title">Monitoreo en tiempo real</div>
+          <h2>Nivel del río</h2>
+
+          <div class="level-display">
+            <div class="level-number" id="levelValue">3.18</div>
+            <div class="level-label">metros</div>
+          </div>
+
+          <div class="status-text" id="statusMsg">Preparación preventiva y seguimiento constante.</div>
+
+          <div class="chart" id="chart"></div>
+        </div>
+
+        <!-- CARD 2: ALERTAS -->
+        <div class="card">
+          <div class="card-title">Control de alertas</div>
+          <h2>Activar alerta</h2>
+
+          <div class="button-group">
+            <button class="btn-yellow" onclick="simulateAlert('yellow')">🟡 Amarilla</button>
+            <button class="btn-orange" onclick="simulateAlert('orange')">🟠 Naranja</button>
+            <button class="btn-red" onclick="simulateAlert('red')">🔴 Roja</button>
+            <button class="btn-primary" onclick="toggleAutoSim()">⚙️ Auto Sim ON</button>
+          </div>
+
+          <div class="alert-list" id="alertList">
+            <div class="alert-item">
+              <div class="alert-item-title">🟡 Alerta Amarilla</div>
+              <div class="alert-item-time">Hace 2 min</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 3: ALERTAS SMS -->
+        <div class="card">
+          <div class="card-title">Alertas enviadas por SMS</div>
+          <h2>Historial</h2>
+
+          <div class="sms-list" id="smsList">
+            <div style="color: rgba(148, 163, 184, 0.6); font-size: 12px; text-align: center; padding: 20px;">
+              Sin alertas aún
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ===== USUARIOS REGISTRADOS =====
+    const REGISTERED_USERS = {
+      '3171297528': '3171297528',
+      '3169128151': '3169128151',
+      '3052805449': '3052805449',
+      '3173869612': '3173869612'
+    };
+
+    // ===== ESTADO DE LA APP =====
+    let appState = {
+      currentUser: null,
+      currentLevel: 3.18,
+      currentAlert: 'yellow',
+      autoSimulation: false,
+      sentSMS: [],
+      recentAlerts: []
+    };
+
+    // ===== LOGIN =====
+    function login() {
+      const phone = document.getElementById('phone').value.trim();
+      const password = document.getElementById('password').value;
+      const errorMsg = document.getElementById('errorMsg');
+
+      if (!phone || !password) {
+        showError('Por favor completa todos los campos');
+        return;
+      }
+
+      if (REGISTERED_USERS[phone] === password) {
+        appState.currentUser = phone;
+        localStorage.setItem('satdUser', phone);
+        showScreen('app');
+        initDashboard();
+        showToast(`✅ Bienvenido ${phone}`);
+      } else {
+        showError('Número o contraseña incorrectos');
+      }
+    }
+
+    function logout() {
+      appState.currentUser = null;
+      localStorage.removeItem('satdUser');
+      document.getElementById('phone').value = '';
+      document.getElementById('password').value = '';
+      showScreen('login');
+      showToast('Sesión cerrada');
+    }
+
+    function showError(msg) {
+      const errorMsg = document.getElementById('errorMsg');
+      errorMsg.textContent = msg;
+      errorMsg.classList.add('show');
+      setTimeout(() => errorMsg.classList.remove('show'), 4000);
+    }
+
+    function showScreen(screen) {
+      document.getElementById('loginScreen').classList.remove('active');
+      document.getElementById('appScreen').classList.remove('active');
+
+      if (screen === 'login') {
+        document.getElementById('loginScreen').classList.add('active');
+      } else {
+        document.getElementById('appScreen').classList.add('active');
+      }
+    }
+
+    // ===== DASHBOARD =====
+    function initDashboard() {
+      updateLevel();
+      setInterval(updateLevel, 4000);
+    }
+
+    function getAlertByLevel(level) {
+      if (level >= 3.5) {
+        return {
+          title: 'Alerta Roja',
+          message: 'Evacuación inmediata necesaria',
+          type: 'red',
+          emoji: '🔴'
+        };
+      }
+      if (level >= 2.8) {
+        return {
+          title: 'Alerta Naranja',
+          message: 'Prepararse para evacuación',
+          type: 'orange',
+          emoji: '🟠'
+        };
+      }
+      return {
+        title: 'Alerta Amarilla',
+        message: 'Preparación preventiva',
+        type: 'yellow',
+        emoji: '🟡'
+      };
+    }
+
+    function randomLevel(prev) {
+      const next = +(prev + (Math.random() * 0.26 - 0.12)).toFixed(2);
+      return Math.min(4.4, Math.max(1.2, next));
+    }
+
+    function updateLevel() {
+      if (appState.autoSimulation) {
+        appState.currentLevel = randomLevel(appState.currentLevel);
+      }
+
+      const alert = getAlertByLevel(appState.currentLevel);
+      appState.currentAlert = alert.type;
+
+      // Actualizar UI
+      document.getElementById('levelValue').textContent = appState.currentLevel.toFixed(2);
+      document.getElementById('levelPill').textContent = `Río ${appState.currentLevel.toFixed(2)} m`;
+
+      // Actualizar pilula de alerta
+      const alertPill = document.getElementById('alertPill');
+      alertPill.className = 'pill alert-' + alert.type;
+      alertPill.textContent = alert.title;
+
+      // Actualizar status
+      document.getElementById('statusMsg').textContent = alert.message;
+
+      // Actualizar gráfico
+      updateChart();
+
+      // Verificar si se debe enviar alerta
+      if (appState.currentLevel >= 3.5) {
+        sendSMSAlert('red');
+      } else if (appState.currentLevel >= 2.8) {
+        sendSMSAlert('orange');
+      }
+    }
+
+    function updateChart() {
+      const chart = document.getElementById('chart');
+      chart.innerHTML = '';
+      const bars = [28, 36, 44, 50, 60, 68, 76, 88, 82, 94];
+      bars.forEach(h => {
+        const bar = document.createElement('div');
+        bar.className = 'bar';
+        bar.style.height = h + '%';
+        chart.appendChild(bar);
+      });
+    }
+
+    function simulateAlert(type) {
+      const colors = {
+        yellow: { emoji: '🟡', title: 'Alerta Amarilla' },
+        orange: { emoji: '🟠', title: 'Alerta Naranja' },
+        red: { emoji: '🔴', title: 'Alerta Roja' }
+      };
+
+      const color = colors[type];
+      addAlertToList(color.emoji, color.title);
+      sendSMSAlert(type);
+      showToast(`${color.emoji} ${color.title} activada`);
+    }
+
+    function addAlertToList(emoji, title) {
+      const alertList = document.getElementById('alertList');
+      const time = new Date().toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' });
+
+      const newAlert = document.createElement('div');
+      newAlert.className = 'alert-item';
+      newAlert.innerHTML = `
+        <div class="alert-item-title">${emoji} ${title}</div>
+        <div class="alert-item-time">Hace 0 min</div>
+      `;
+
+      alertList.insertBefore(newAlert, alertList.firstChild);
+      if (alertList.children.length > 5) {
+        alertList.removeChild(alertList.lastChild);
+      }
+    }
+
+    // ===== ENVÍO DE SMS SIMULADO =====
+    function sendSMSAlert(type) {
+      const colors = {
+        yellow: { title: 'ALERTA AMARILLA', msg: 'Nivel del río en aumento. Estar atento.' },
+        orange: { title: 'ALERTA NARANJA', msg: 'Nivel del río crítico. Preparar evacuación.' },
+        red: { title: 'ALERTA ROJA', msg: 'Nivel del río muy alto. EVACUAR INMEDIATAMENTE.' }
+      };
+
+      const alertData = colors[type];
+      const time = new Date().toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+      // Enviar a todos los usuarios
+      Object.keys(REGISTERED_USERS).forEach(phone => {
+        const smsRecord = {
+          phone,
+          message: `[SATD] ${alertData.title}: Nivel ${appState.currentLevel.toFixed(2)}m. ${alertData.msg}`,
+          time,
+          type
+        };
+
+        appState.sentSMS.unshift(smsRecord);
+      });
+
+      // Actualizar UI de SMS
+      updateSMSList();
+
+      // Evitar duplicados muy cerca
+      setTimeout(() => {}, 1000);
+    }
+
+    function updateSMSList() {
+      const smsList = document.getElementById('smsList');
+      smsList.innerHTML = '';
+
+      if (appState.sentSMS.length === 0) {
+        smsList.innerHTML = '<div style="color: rgba(148, 163, 184, 0.6); font-size: 12px; text-align: center; padding: 20px;">Sin alertas aún</div>';
+        return;
+      }
+
+      appState.sentSMS.slice(0, 10).forEach(sms => {
+        const item = document.createElement('div');
+        item.className = 'sms-item';
+        item.innerHTML = `
+          <div class="sms-phone">📱 ${sms.phone}</div>
+          <div style="font-size: 11px; color: rgba(226, 232, 240, 0.7); margin-top: 4px;">✓ Enviado</div>
+          <div class="sms-time">${sms.time}</div>
+        `;
+        smsList.appendChild(item);
+      });
+    }
+
+    // ===== AUTO SIMULACIÓN =====
+    function toggleAutoSim() {
+      appState.autoSimulation = !appState.autoSimulation;
+      const btn = event.target;
+      if (appState.autoSimulation) {
+        btn.textContent = '⚙️ Auto Sim OFF';
+        btn.style.background = 'rgba(34, 211, 238, 0.1)';
+        btn.style.borderColor = 'rgba(34, 211, 238, 0.3)';
+        btn.style.color = '#22d3ee';
+        showToast('✓ Simulación automática activada');
+      } else {
+        btn.textContent = '⚙️ Auto Sim ON';
+        btn.style.background = '';
+        btn.style.borderColor = '';
+        btn.style.color = '';
+        showToast('✗ Simulación automática desactivada');
+      }
+    }
+
+    // ===== UI HELPERS =====
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+
+    // ===== INIT =====
+    window.addEventListener('load', () => {
+      const savedUser = localStorage.getItem('satdUser');
+      if (savedUser && REGISTERED_USERS[savedUser]) {
+        appState.currentUser = savedUser;
+        showScreen('app');
+        initDashboard();
+        document.getElementById('userPill').textContent = `👤 ${savedUser}`;
+      }
+    });
+  </script>
+</body>
 </html>
