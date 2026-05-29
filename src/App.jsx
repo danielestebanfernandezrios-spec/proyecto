@@ -10,6 +10,8 @@ const safeZones = [
     name: 'Coliseo del Pueblo',
     distance: '1.2 km',
     status: 'Abierto',
+    lat: 3.4372,
+    lng: -76.5205,
     route: [
       'Sal del punto actual por la avenida principal.',
       'Avanza 450 m hacia el norte siguiendo la ruta segura.',
@@ -21,6 +23,8 @@ const safeZones = [
     name: 'Unidad Deportiva',
     distance: '1.8 km',
     status: 'Abierto',
+    lat: 3.4501,
+    lng: -76.5180,
     route: [
       'Toma la vía de evacuación más cercana.',
       'Sigue recto durante 600 m por la ruta señalizada.',
@@ -32,6 +36,8 @@ const safeZones = [
     name: 'Parque Las Banderas',
     distance: '2.1 km',
     status: 'Capacidad media',
+    lat: 3.4278,
+    lng: -76.5089,
     route: [
       'Sal por la calle lateral y sigue los avisos de emergencia.',
       'Continúa 700 m hasta el cruce seguro.',
@@ -43,6 +49,8 @@ const safeZones = [
     name: 'Colegio Santa Librada',
     distance: '2.5 km',
     status: 'Abierto',
+    lat: 3.4156,
+    lng: -76.5312,
     route: [
       'Ve hacia la vía principal y mantente en la acera derecha.',
       'Avanza 500 m sin detenerte.',
