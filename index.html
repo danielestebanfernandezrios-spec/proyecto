@@ -11,58 +11,62 @@
       box-sizing: border-box;
     }
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: linear-gradient(180deg, #020817 0%, #07162f 45%, #020817 100%);
-      color: white;
-      min-height: 100vh;
+    html, body {
+      height: 100%;
+      width: 100%;
     }
 
-    /* ===== LOGIN SCREEN ===== */
-    .login-container {
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #333;
+      overflow-x: hidden;
+    }
+
+    /* ===== LOGIN ===== */
+    .login-screen {
       display: none;
       min-height: 100vh;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 20px;
     }
 
-    .login-container.active {
+    .login-screen.active {
       display: flex;
     }
 
-    .login-box {
-      background: rgba(7, 17, 31, 0.9);
-      border: 1px solid rgba(34, 211, 238, 0.3);
-      border-radius: 30px;
+    .login-card {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
       padding: 40px;
-      max-width: 400px;
       width: 100%;
-      box-shadow: 0 30px 120px rgba(0, 0, 0, 0.5);
+      max-width: 400px;
     }
 
     .login-header {
       text-align: center;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
     }
 
-    .login-logo {
-      font-size: 60px;
-      margin-bottom: 15px;
+    .logo-big {
+      font-size: 80px;
+      margin-bottom: 10px;
     }
 
     .login-header h1 {
-      font-size: 24px;
-      font-weight: 900;
+      font-size: 32px;
+      font-weight: 700;
+      color: #333;
       margin-bottom: 5px;
     }
 
     .login-header p {
-      font-size: 12px;
-      letter-spacing: 0.2em;
-      color: rgba(34, 211, 238, 0.7);
-      text-transform: uppercase;
+      color: #666;
+      font-size: 14px;
     }
 
     .form-group {
@@ -71,386 +75,339 @@
 
     .form-group label {
       display: block;
-      font-size: 12px;
-      letter-spacing: 0.1em;
-      color: rgba(148, 163, 184, 0.8);
-      text-transform: uppercase;
       margin-bottom: 8px;
+      font-weight: 600;
+      color: #333;
+      font-size: 14px;
     }
 
     .form-group input {
       width: 100%;
-      padding: 12px 16px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 12px;
-      color: white;
+      padding: 12px 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
       font-size: 16px;
       transition: all 0.3s;
     }
 
     .form-group input:focus {
       outline: none;
-      border-color: rgba(34, 211, 238, 0.6);
-      background: rgba(34, 211, 238, 0.05);
-    }
-
-    .form-group input::placeholder {
-      color: rgba(148, 163, 184, 0.4);
+      border-color: #667eea;
+      background: #f8f9ff;
     }
 
     .login-btn {
       width: 100%;
       padding: 14px;
-      background: linear-gradient(135deg, #06b6d4, #0891b2);
-      border: none;
-      border-radius: 12px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
-      font-weight: 900;
+      border: none;
+      border-radius: 10px;
+      font-weight: 700;
       font-size: 16px;
       cursor: pointer;
       transition: all 0.3s;
-      margin-top: 10px;
+      margin-top: 20px;
     }
 
     .login-btn:hover {
-      box-shadow: 0 0 30px rgba(6, 182, 212, 0.4);
       transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
     }
 
-    .login-btn:active {
-      transform: translateY(0);
-    }
-
-    .error-message {
-      background: rgba(239, 68, 68, 0.1);
-      border: 1px solid rgba(239, 68, 68, 0.3);
-      color: #fca5a5;
+    .error {
+      background: #fee;
+      color: #c33;
       padding: 12px;
-      border-radius: 10px;
-      font-size: 13px;
+      border-radius: 8px;
       margin-bottom: 20px;
+      font-size: 14px;
       display: none;
     }
 
-    .error-message.show {
+    .error.show {
       display: block;
     }
 
-    .info-text {
-      text-align: center;
-      font-size: 12px;
-      color: rgba(148, 163, 184, 0.6);
+    .info-box {
+      background: #f0f4ff;
+      padding: 15px;
+      border-radius: 10px;
       margin-top: 20px;
+      font-size: 13px;
+      color: #555;
       line-height: 1.6;
     }
 
-    .info-text strong {
-      color: rgba(34, 211, 238, 0.8);
+    .info-box strong {
+      color: #667eea;
+      display: block;
+      margin-bottom: 8px;
     }
 
-    /* ===== APP SCREEN ===== */
-    .app-container {
+    /* ===== APP ===== */
+    .app-screen {
       display: none;
+      background: #f5f7fa;
+      min-height: 100vh;
     }
 
-    .app-container.active {
+    .app-screen.active {
       display: block;
     }
 
     header {
-      background: rgba(9, 20, 39, 0.95);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 15px 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 20px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 15px;
     }
 
     .header-left {
       display: flex;
-      gap: 12px;
       align-items: center;
+      gap: 15px;
     }
 
-    .logo {
-      width: 45px;
-      height: 45px;
-      background: rgba(34, 211, 238, 0.1);
-      border: 1px solid rgba(34, 211, 238, 0.3);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .header-logo {
+      font-size: 40px;
+    }
+
+    .header-text h1 {
       font-size: 24px;
+      font-weight: 700;
+      margin: 0;
     }
 
-    .header-title h1 {
-      font-size: 16px;
-      font-weight: 900;
+    .header-text p {
+      margin: 0;
+      font-size: 12px;
+      opacity: 0.9;
     }
 
-    .header-title p {
-      font-size: 9px;
-      letter-spacing: 0.2em;
-      color: rgba(34, 211, 238, 0.6);
-      text-transform: uppercase;
-    }
-
-    .header-info {
+    .header-right {
       display: flex;
       gap: 10px;
       align-items: center;
     }
 
-    .pill {
-      padding: 6px 14px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 18px;
-      font-size: 11px;
+    .badge {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 8px 12px;
+      border-radius: 20px;
+      font-size: 12px;
       font-weight: 600;
     }
 
-    .pill.alert-red {
-      border-color: rgba(239, 68, 68, 0.3);
-      background: rgba(239, 68, 68, 0.1);
-      color: #fca5a5;
-    }
-
-    .pill.alert-orange {
-      border-color: rgba(249, 115, 22, 0.3);
-      background: rgba(249, 115, 22, 0.1);
-      color: #fed7aa;
-    }
-
-    .pill.alert-yellow {
-      border-color: rgba(234, 179, 8, 0.3);
-      background: rgba(234, 179, 8, 0.1);
-      color: #fef08a;
-    }
-
-    .logout-btn {
-      padding: 6px 14px;
-      background: rgba(239, 68, 68, 0.1);
-      border: 1px solid rgba(239, 68, 68, 0.3);
-      color: #fca5a5;
-      border-radius: 18px;
+    .logout {
+      background: rgba(255, 0, 0, 0.3);
+      padding: 8px 16px;
+      border: none;
+      border-radius: 20px;
+      color: white;
       cursor: pointer;
-      font-size: 11px;
       font-weight: 600;
       transition: all 0.3s;
     }
 
-    .logout-btn:hover {
-      background: rgba(239, 68, 68, 0.2);
+    .logout:hover {
+      background: rgba(255, 0, 0, 0.5);
     }
 
-    .content {
-      padding: 20px;
-      max-width: 1400px;
+    .container {
+      max-width: 1200px;
       margin: 0 auto;
+      padding: 30px 20px;
     }
 
-    .dashboard {
+    .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      margin-bottom: 30px;
     }
 
     .card {
-      background: rgba(11, 21, 40, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 20px;
-      padding: 20px;
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s;
+    }
+
+    .card:hover {
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
     }
 
     .card-title {
-      font-size: 11px;
-      letter-spacing: 0.15em;
-      color: rgba(148, 163, 184, 0.6);
+      font-size: 12px;
+      color: #999;
       text-transform: uppercase;
+      letter-spacing: 1px;
       margin-bottom: 10px;
+      font-weight: 700;
     }
 
     .card h2 {
-      font-size: 24px;
-      font-weight: 900;
-      margin-bottom: 15px;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #333;
     }
 
-    .level-display {
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+    .level-box {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 30px;
       border-radius: 15px;
-      padding: 25px;
       text-align: center;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
     }
 
     .level-number {
-      font-size: 48px;
+      font-size: 60px;
       font-weight: 900;
-      color: #22d3ee;
       margin-bottom: 5px;
     }
 
-    .level-label {
-      color: rgba(226, 232, 240, 0.6);
-      font-size: 12px;
+    .level-unit {
+      font-size: 16px;
+      opacity: 0.9;
     }
 
-    .status-text {
-      font-size: 13px;
-      color: rgba(226, 232, 240, 0.7);
+    .status {
+      background: #f0f4ff;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 14px;
+      color: #555;
       line-height: 1.6;
+      margin-bottom: 20px;
     }
 
     .button-group {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
-      margin-top: 15px;
+      margin-bottom: 20px;
     }
 
     button {
-      padding: 10px 14px;
+      padding: 12px 16px;
       border: none;
-      border-radius: 12px;
-      font-weight: bold;
+      border-radius: 10px;
+      font-weight: 600;
       cursor: pointer;
-      font-size: 12px;
       transition: all 0.3s;
+      font-size: 13px;
     }
 
-    button:active {
-      transform: scale(0.95);
+    .btn-yellow {
+      background: #ffd700;
+      color: #333;
+    }
+
+    .btn-yellow:hover {
+      background: #ffb700;
+      transform: translateY(-2px);
+    }
+
+    .btn-orange {
+      background: #ff9800;
+      color: white;
+    }
+
+    .btn-orange:hover {
+      background: #f57c00;
+      transform: translateY(-2px);
+    }
+
+    .btn-red {
+      background: #f44336;
+      color: white;
+    }
+
+    .btn-red:hover {
+      background: #d32f2f;
+      transform: translateY(-2px);
     }
 
     .btn-primary {
-      background: #06b6d4;
+      background: #667eea;
       color: white;
       grid-column: 1 / -1;
     }
 
     .btn-primary:hover {
-      background: #0891b2;
+      background: #5568d3;
+      transform: translateY(-2px);
     }
 
-    .btn-yellow {
-      background: rgba(234, 179, 8, 0.15);
-      color: #fef08a;
-      border: 1px solid rgba(234, 179, 8, 0.3);
-    }
-
-    .btn-yellow:hover {
-      background: rgba(234, 179, 8, 0.25);
-    }
-
-    .btn-orange {
-      background: rgba(249, 115, 22, 0.15);
-      color: #fed7aa;
-      border: 1px solid rgba(249, 115, 22, 0.3);
-    }
-
-    .btn-orange:hover {
-      background: rgba(249, 115, 22, 0.25);
-    }
-
-    .btn-red {
-      background: rgba(239, 68, 68, 0.15);
-      color: #fca5a5;
-      border: 1px solid rgba(239, 68, 68, 0.3);
-    }
-
-    .btn-red:hover {
-      background: rgba(239, 68, 68, 0.25);
-    }
-
-    .chart {
+    .chart-box {
+      background: #f5f7fa;
+      padding: 20px;
+      border-radius: 10px;
+      height: 150px;
       display: flex;
       align-items: flex-end;
-      gap: 4px;
-      height: 100px;
-      background: rgba(0, 0, 0, 0.2);
-      border: 1px solid rgba(34, 211, 238, 0.1);
-      border-radius: 12px;
-      padding: 8px;
-      margin-top: 12px;
+      gap: 5px;
+      margin-top: 20px;
     }
 
     .bar {
       flex: 1;
-      background: linear-gradient(to top, #06b6d4, #22d3ee);
-      border-radius: 2px;
-      min-height: 3px;
+      background: linear-gradient(to top, #667eea, #764ba2);
+      border-radius: 5px;
+      min-height: 5px;
     }
 
-    .alert-list {
+    .list {
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      margin-top: 15px;
-    }
-
-    .alert-item {
-      background: rgba(0, 0, 0, 0.2);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      padding: 10px;
-      font-size: 12px;
-    }
-
-    .alert-item-title {
-      font-weight: bold;
-      margin-bottom: 3px;
-    }
-
-    .alert-item-time {
-      color: rgba(148, 163, 184, 0.5);
-      font-size: 10px;
-    }
-
-    .sms-list {
-      margin-top: 15px;
-      max-height: 200px;
+      gap: 12px;
+      max-height: 300px;
       overflow-y: auto;
     }
 
-    .sms-item {
-      background: rgba(34, 211, 238, 0.1);
-      border-left: 3px solid #06b6d4;
-      padding: 10px;
-      margin-bottom: 8px;
-      border-radius: 8px;
+    .item {
+      background: #f5f7fa;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      border-left: 4px solid #667eea;
+    }
+
+    .item-title {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 3px;
+    }
+
+    .item-time {
+      color: #999;
       font-size: 11px;
-    }
-
-    .sms-phone {
-      font-weight: bold;
-      color: #22d3ee;
-    }
-
-    .sms-time {
-      color: rgba(148, 163, 184, 0.6);
-      font-size: 10px;
-      margin-top: 3px;
     }
 
     .toast {
       position: fixed;
       bottom: 20px;
       right: 20px;
-      background: rgba(6, 182, 212, 0.95);
-      border: 1px solid rgba(34, 211, 238, 0.5);
-      border-radius: 12px;
-      padding: 14px 18px;
+      background: #333;
       color: white;
-      animation: slideIn 0.3s ease-out;
-      z-index: 2000;
-      font-size: 12px;
+      padding: 16px 24px;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      animation: slideIn 0.4s ease-out;
+      z-index: 9999;
+      font-size: 14px;
     }
 
     @keyframes slideIn {
@@ -465,129 +422,126 @@
     }
 
     @media (max-width: 768px) {
-      .dashboard {
+      .header-content {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+      }
+
+      .header-right {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .grid {
         grid-template-columns: 1fr;
       }
 
-      header {
-        flex-direction: column;
-        align-items: flex-start;
+      .button-group {
+        grid-template-columns: 1fr;
       }
 
-      .header-info {
-        width: 100%;
-        flex-wrap: wrap;
+      .btn-primary {
+        grid-column: auto;
       }
     }
   </style>
 </head>
 <body>
   <!-- LOGIN SCREEN -->
-  <div class="login-container active" id="loginScreen">
-    <div class="login-box">
+  <div class="login-screen active" id="loginScreen">
+    <div class="login-card">
       <div class="login-header">
-        <div class="login-logo">🌊</div>
+        <div class="logo-big">🌊</div>
         <h1>SATD</h1>
-        <p>Sistema de Alerta Temprana</p>
+        <p>Sistema de Alerta Temprana de Desbordamiento</p>
       </div>
 
-      <div class="error-message" id="errorMsg"></div>
+      <div class="error" id="error"></div>
 
       <div class="form-group">
-        <label>Número de teléfono</label>
-        <input
-          type="tel"
-          id="phone"
-          placeholder="Ej: 3171297528"
-          onkeypress="if(event.key==='Enter') login()"
-        >
+        <label>Teléfono</label>
+        <input type="tel" id="phone" placeholder="Ej: 3171297528" onkeypress="if(event.key==='Enter') login()">
       </div>
 
       <div class="form-group">
         <label>Contraseña</label>
-        <input
-          type="password"
-          id="password"
-          placeholder="Ingresa tu número"
-          onkeypress="if(event.key==='Enter') login()"
-        >
+        <input type="password" id="password" placeholder="Tu número" onkeypress="if(event.key==='Enter') login()">
       </div>
 
       <button class="login-btn" onclick="login()">Ingresar</button>
 
-      <div class="info-text">
-        <strong>Usuarios de prueba:</strong><br>
-        3171297528 | 3169128151 | 3052805449 | 3173869612<br>
-        Contraseña: el mismo número
+      <div class="info-box">
+        <strong>Usuarios de prueba:</strong>
+        3171297528<br>
+        3169128151<br>
+        3052805449<br>
+        3173869612<br>
+        <strong>Contraseña:</strong> El mismo número
       </div>
     </div>
   </div>
 
   <!-- APP SCREEN -->
-  <div class="app-container" id="appScreen">
+  <div class="app-screen" id="appScreen">
     <header>
-      <div class="header-left">
-        <div class="logo">🌊</div>
-        <div class="header-title">
-          <h1>SATD</h1>
-          <p>Sistema Activo</p>
+      <div class="header-content">
+        <div class="header-left">
+          <div class="header-logo">🌊</div>
+          <div class="header-text">
+            <h1>SATD</h1>
+            <p>En tiempo real</p>
+          </div>
         </div>
-      </div>
-
-      <div class="header-info">
-        <div class="pill" id="userPill">Usuario activo</div>
-        <div class="pill" id="levelPill">Río 3.18 m</div>
-        <div class="pill alert-yellow" id="alertPill">Alerta Amarilla</div>
-        <button class="logout-btn" onclick="logout()">Cerrar sesión</button>
+        <div class="header-right">
+          <div class="badge" id="userBadge">👤 Usuario</div>
+          <div class="badge" id="levelBadge">📊 3.18 m</div>
+          <div class="badge" id="alertBadge">🟡 Alerta</div>
+          <button class="logout" onclick="logout()">Cerrar sesión</button>
+        </div>
       </div>
     </header>
 
-    <div class="content">
-      <div class="dashboard">
-        <!-- CARD 1: MONITOREO -->
+    <div class="container">
+      <div class="grid">
+        <!-- CARD: MONITOREO -->
         <div class="card">
-          <div class="card-title">Monitoreo en tiempo real</div>
-          <h2>Nivel del río</h2>
+          <div class="card-title">Monitoreo</div>
+          <h2>Nivel del Río</h2>
 
-          <div class="level-display">
+          <div class="level-box">
             <div class="level-number" id="levelValue">3.18</div>
-            <div class="level-label">metros</div>
+            <div class="level-unit">metros</div>
           </div>
 
-          <div class="status-text" id="statusMsg">Preparación preventiva y seguimiento constante.</div>
+          <div class="status" id="status">Preparación preventiva y seguimiento constante.</div>
 
-          <div class="chart" id="chart"></div>
+          <div class="chart-box" id="chart"></div>
         </div>
 
-        <!-- CARD 2: ALERTAS -->
+        <!-- CARD: CONTROLES -->
         <div class="card">
-          <div class="card-title">Control de alertas</div>
-          <h2>Activar alerta</h2>
+          <div class="card-title">Alertas</div>
+          <h2>Control</h2>
 
           <div class="button-group">
-            <button class="btn-yellow" onclick="simulateAlert('yellow')">🟡 Amarilla</button>
-            <button class="btn-orange" onclick="simulateAlert('orange')">🟠 Naranja</button>
-            <button class="btn-red" onclick="simulateAlert('red')">🔴 Roja</button>
-            <button class="btn-primary" onclick="toggleAutoSim()">⚙️ Auto Sim ON</button>
+            <button class="btn-yellow" onclick="alertaManual('yellow')">Amarilla</button>
+            <button class="btn-orange" onclick="alertaManual('orange')">Naranja</button>
+            <button class="btn-red" onclick="alertaManual('red')">Roja</button>
+            <button class="btn-primary" onclick="toggleSimulacion()">Simulación: ON</button>
           </div>
 
-          <div class="alert-list" id="alertList">
-            <div class="alert-item">
-              <div class="alert-item-title">🟡 Alerta Amarilla</div>
-              <div class="alert-item-time">Hace 2 min</div>
-            </div>
-          </div>
+          <div class="card-title" style="margin-top: 20px;">Historial de Alertas</div>
+          <div class="list" id="alertList"></div>
         </div>
 
-        <!-- CARD 3: ALERTAS SMS -->
+        <!-- CARD: SMS -->
         <div class="card">
-          <div class="card-title">Alertas enviadas por SMS</div>
-          <h2>Historial</h2>
+          <div class="card-title">SMS</div>
+          <h2>Enviados</h2>
 
-          <div class="sms-list" id="smsList">
-            <div style="color: rgba(148, 163, 184, 0.6); font-size: 12px; text-align: center; padding: 20px;">
-              Sin alertas aún
-            </div>
+          <div class="list" id="smsList">
+            <p style="color: #999; font-size: 13px; text-align: center; padding: 40px 0;">Sin alertas aún</p>
           </div>
         </div>
       </div>
@@ -595,269 +549,202 @@
   </div>
 
   <script>
-    // ===== USUARIOS REGISTRADOS =====
-    const REGISTERED_USERS = {
+    const USERS = {
       '3171297528': '3171297528',
       '3169128151': '3169128151',
       '3052805449': '3052805449',
       '3173869612': '3173869612'
     };
 
-    // ===== ESTADO DE LA APP =====
-    let appState = {
-      currentUser: null,
-      currentLevel: 3.18,
-      currentAlert: 'yellow',
-      autoSimulation: false,
-      sentSMS: [],
-      recentAlerts: []
+    let app = {
+      user: null,
+      level: 3.18,
+      simulating: false,
+      alertHistory: [],
+      smsHistory: [],
+      lastAlertType: null,
+      lastAlertTime: 0
     };
 
-    // ===== LOGIN =====
+    // LOGIN
     function login() {
       const phone = document.getElementById('phone').value.trim();
-      const password = document.getElementById('password').value;
-      const errorMsg = document.getElementById('errorMsg');
+      const pass = document.getElementById('password').value;
 
-      if (!phone || !password) {
-        showError('Por favor completa todos los campos');
+      if (!phone || !pass) {
+        showError('Completa los campos');
         return;
       }
 
-      if (REGISTERED_USERS[phone] === password) {
-        appState.currentUser = phone;
-        localStorage.setItem('satdUser', phone);
-        showScreen('app');
-        initDashboard();
-        showToast(`✅ Bienvenido ${phone}`);
-      } else {
-        showError('Número o contraseña incorrectos');
+      if (!USERS[phone] || USERS[phone] !== pass) {
+        showError('Datos incorrectos');
+        return;
       }
+
+      app.user = phone;
+      localStorage.setItem('satdUser', phone);
+      showScreen('app');
+      iniciar();
+      toast('✓ Bienvenido ' + phone);
     }
 
     function logout() {
-      appState.currentUser = null;
+      app.user = null;
       localStorage.removeItem('satdUser');
       document.getElementById('phone').value = '';
       document.getElementById('password').value = '';
       showScreen('login');
-      showToast('Sesión cerrada');
+      toast('Sesión cerrada');
     }
 
     function showError(msg) {
-      const errorMsg = document.getElementById('errorMsg');
-      errorMsg.textContent = msg;
-      errorMsg.classList.add('show');
-      setTimeout(() => errorMsg.classList.remove('show'), 4000);
+      const el = document.getElementById('error');
+      el.textContent = msg;
+      el.classList.add('show');
+      setTimeout(() => el.classList.remove('show'), 3000);
     }
 
-    function showScreen(screen) {
+    function showScreen(name) {
       document.getElementById('loginScreen').classList.remove('active');
       document.getElementById('appScreen').classList.remove('active');
+      document.getElementById(name + 'Screen').classList.add('active');
+    }
 
-      if (screen === 'login') {
-        document.getElementById('loginScreen').classList.add('active');
-      } else {
-        document.getElementById('appScreen').classList.add('active');
+    // APP FUNCTIONS
+    function iniciar() {
+      document.getElementById('userBadge').textContent = '👤 ' + app.user;
+      actualizar();
+      setInterval(actualizar, 3000);
+    }
+
+    function getAlerta(nivel) {
+      if (nivel >= 3.5) return { emoji: '🔴', title: 'Roja', msg: 'EVACUAR INMEDIATAMENTE', color: '#f44336' };
+      if (nivel >= 2.8) return { emoji: '🟠', title: 'Naranja', msg: 'Preparar evacuación', color: '#ff9800' };
+      return { emoji: '🟡', title: 'Amarilla', msg: 'Estar atento', color: '#ffd700' };
+    }
+
+    function randLevel(prev) {
+      const change = (Math.random() * 0.26) - 0.13;
+      let next = prev + change;
+      return Math.max(1.2, Math.min(4.4, parseFloat(next.toFixed(2))));
+    }
+
+    function actualizar() {
+      if (app.simulating) app.level = randLevel(app.level);
+
+      const alerta = getAlerta(app.level);
+      document.getElementById('levelValue').textContent = app.level.toFixed(2);
+      document.getElementById('levelBadge').textContent = '📊 ' + app.level.toFixed(2) + ' m';
+      document.getElementById('alertBadge').textContent = alerta.emoji + ' ' + alerta.title;
+      document.getElementById('alertBadge').style.background = alerta.color;
+      document.getElementById('status').textContent = alerta.msg;
+
+      dibujarGrafico();
+
+      // Auto enviar SMS si crece
+      if (app.level >= 3.5 || app.level >= 2.8) {
+        const ahora = Date.now();
+        if (ahora - app.lastAlertTime > 5000) {
+          const tipo = app.level >= 3.5 ? 'red' : 'orange';
+          enviarSMS(tipo);
+          app.lastAlertTime = ahora;
+        }
       }
     }
 
-    // ===== DASHBOARD =====
-    function initDashboard() {
-      updateLevel();
-      setInterval(updateLevel, 4000);
-    }
-
-    function getAlertByLevel(level) {
-      if (level >= 3.5) {
-        return {
-          title: 'Alerta Roja',
-          message: 'Evacuación inmediata necesaria',
-          type: 'red',
-          emoji: '🔴'
-        };
-      }
-      if (level >= 2.8) {
-        return {
-          title: 'Alerta Naranja',
-          message: 'Prepararse para evacuación',
-          type: 'orange',
-          emoji: '🟠'
-        };
-      }
-      return {
-        title: 'Alerta Amarilla',
-        message: 'Preparación preventiva',
-        type: 'yellow',
-        emoji: '🟡'
-      };
-    }
-
-    function randomLevel(prev) {
-      const next = +(prev + (Math.random() * 0.26 - 0.12)).toFixed(2);
-      return Math.min(4.4, Math.max(1.2, next));
-    }
-
-    function updateLevel() {
-      if (appState.autoSimulation) {
-        appState.currentLevel = randomLevel(appState.currentLevel);
-      }
-
-      const alert = getAlertByLevel(appState.currentLevel);
-      appState.currentAlert = alert.type;
-
-      // Actualizar UI
-      document.getElementById('levelValue').textContent = appState.currentLevel.toFixed(2);
-      document.getElementById('levelPill').textContent = `Río ${appState.currentLevel.toFixed(2)} m`;
-
-      // Actualizar pilula de alerta
-      const alertPill = document.getElementById('alertPill');
-      alertPill.className = 'pill alert-' + alert.type;
-      alertPill.textContent = alert.title;
-
-      // Actualizar status
-      document.getElementById('statusMsg').textContent = alert.message;
-
-      // Actualizar gráfico
-      updateChart();
-
-      // Verificar si se debe enviar alerta
-      if (appState.currentLevel >= 3.5) {
-        sendSMSAlert('red');
-      } else if (appState.currentLevel >= 2.8) {
-        sendSMSAlert('orange');
-      }
-    }
-
-    function updateChart() {
+    function dibujarGrafico() {
       const chart = document.getElementById('chart');
       chart.innerHTML = '';
       const bars = [28, 36, 44, 50, 60, 68, 76, 88, 82, 94];
       bars.forEach(h => {
         const bar = document.createElement('div');
         bar.className = 'bar';
-        bar.style.height = h + '%';
+        bar.style.height = (h) + '%';
         chart.appendChild(bar);
       });
     }
 
-    function simulateAlert(type) {
-      const colors = {
-        yellow: { emoji: '🟡', title: 'Alerta Amarilla' },
-        orange: { emoji: '🟠', title: 'Alerta Naranja' },
-        red: { emoji: '🔴', title: 'Alerta Roja' }
-      };
-
-      const color = colors[type];
-      addAlertToList(color.emoji, color.title);
-      sendSMSAlert(type);
-      showToast(`${color.emoji} ${color.title} activada`);
+    function alertaManual(tipo) {
+      addAlerta(tipo);
+      enviarSMS(tipo);
+      const names = { yellow: 'Amarilla', orange: 'Naranja', red: 'Roja' };
+      toast('✓ ' + names[tipo] + ' activada');
     }
 
-    function addAlertToList(emoji, title) {
-      const alertList = document.getElementById('alertList');
-      const time = new Date().toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' });
+    function addAlerta(tipo) {
+      const times = { yellow: '🟡', orange: '🟠', red: '🔴' };
+      const names = { yellow: 'Amarilla', orange: 'Naranja', red: 'Roja' };
+      const ahora = new Date().toLocaleTimeString('es-CO');
 
-      const newAlert = document.createElement('div');
-      newAlert.className = 'alert-item';
-      newAlert.innerHTML = `
-        <div class="alert-item-title">${emoji} ${title}</div>
-        <div class="alert-item-time">Hace 0 min</div>
-      `;
+      app.alertHistory.unshift({ tipo, nombre: names[tipo], hora: ahora, emoji: times[tipo] });
 
-      alertList.insertBefore(newAlert, alertList.firstChild);
-      if (alertList.children.length > 5) {
-        alertList.removeChild(alertList.lastChild);
+      const html = `<div class="item"><div class="item-title">${times[tipo]} ${names[tipo]}</div><div class="item-time">${ahora}</div></div>`;
+      document.getElementById('alertList').insertAdjacentHTML('afterbegin', html);
+
+      while (document.getElementById('alertList').children.length > 8) {
+        document.getElementById('alertList').removeChild(document.getElementById('alertList').lastChild);
       }
     }
 
-    // ===== ENVÍO DE SMS SIMULADO =====
-    function sendSMSAlert(type) {
-      const colors = {
-        yellow: { title: 'ALERTA AMARILLA', msg: 'Nivel del río en aumento. Estar atento.' },
-        orange: { title: 'ALERTA NARANJA', msg: 'Nivel del río crítico. Preparar evacuación.' },
-        red: { title: 'ALERTA ROJA', msg: 'Nivel del río muy alto. EVACUAR INMEDIATAMENTE.' }
+    function enviarSMS(tipo) {
+      const tipos = {
+        yellow: { titulo: 'ALERTA AMARILLA', msg: 'Nivel en aumento. Estar atento.' },
+        orange: { titulo: 'ALERTA NARANJA', msg: 'Nivel crítico. Preparar evacuación.' },
+        red: { titulo: 'ALERTA ROJA', msg: 'Nivel muy alto. ¡EVACUAR AHORA!' }
       };
 
-      const alertData = colors[type];
-      const time = new Date().toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      const data = tipos[tipo];
+      const ahora = new Date().toLocaleTimeString('es-CO');
 
-      // Enviar a todos los usuarios
-      Object.keys(REGISTERED_USERS).forEach(phone => {
-        const smsRecord = {
+      Object.keys(USERS).forEach(phone => {
+        app.smsHistory.unshift({
           phone,
-          message: `[SATD] ${alertData.title}: Nivel ${appState.currentLevel.toFixed(2)}m. ${alertData.msg}`,
-          time,
-          type
-        };
-
-        appState.sentSMS.unshift(smsRecord);
+          msg: `[SATD] ${data.titulo}: Nivel ${app.level.toFixed(2)}m. ${data.msg}`,
+          hora: ahora
+        });
       });
 
-      // Actualizar UI de SMS
-      updateSMSList();
-
-      // Evitar duplicados muy cerca
-      setTimeout(() => {}, 1000);
+      actualizarSMS();
     }
 
-    function updateSMSList() {
+    function actualizarSMS() {
       const smsList = document.getElementById('smsList');
       smsList.innerHTML = '';
 
-      if (appState.sentSMS.length === 0) {
-        smsList.innerHTML = '<div style="color: rgba(148, 163, 184, 0.6); font-size: 12px; text-align: center; padding: 20px;">Sin alertas aún</div>';
+      if (app.smsHistory.length === 0) {
+        smsList.innerHTML = '<p style="color: #999; font-size: 13px; text-align: center; padding: 40px 0;">Sin alertas aún</p>';
         return;
       }
 
-      appState.sentSMS.slice(0, 10).forEach(sms => {
-        const item = document.createElement('div');
-        item.className = 'sms-item';
-        item.innerHTML = `
-          <div class="sms-phone">📱 ${sms.phone}</div>
-          <div style="font-size: 11px; color: rgba(226, 232, 240, 0.7); margin-top: 4px;">✓ Enviado</div>
-          <div class="sms-time">${sms.time}</div>
-        `;
-        smsList.appendChild(item);
+      app.smsHistory.slice(0, 12).forEach(sms => {
+        const html = `<div class="item"><div class="item-title">📱 ${sms.phone}</div><div class="item-time">✓ ${sms.hora}</div></div>`;
+        smsList.insertAdjacentHTML('beforeend', html);
       });
     }
 
-    // ===== AUTO SIMULACIÓN =====
-    function toggleAutoSim() {
-      appState.autoSimulation = !appState.autoSimulation;
+    function toggleSimulacion() {
+      app.simulating = !app.simulating;
       const btn = event.target;
-      if (appState.autoSimulation) {
-        btn.textContent = '⚙️ Auto Sim OFF';
-        btn.style.background = 'rgba(34, 211, 238, 0.1)';
-        btn.style.borderColor = 'rgba(34, 211, 238, 0.3)';
-        btn.style.color = '#22d3ee';
-        showToast('✓ Simulación automática activada');
-      } else {
-        btn.textContent = '⚙️ Auto Sim ON';
-        btn.style.background = '';
-        btn.style.borderColor = '';
-        btn.style.color = '';
-        showToast('✗ Simulación automática desactivada');
-      }
+      btn.textContent = 'Simulación: ' + (app.simulating ? 'OFF' : 'ON');
+      btn.style.background = app.simulating ? '#667eea' : '#667eea';
+      toast(app.simulating ? '▶ Simulación activa' : '⏸ Simulación pausada');
     }
 
-    // ===== UI HELPERS =====
-    function showToast(message) {
-      const toast = document.createElement('div');
-      toast.className = 'toast';
-      toast.textContent = message;
-      document.body.appendChild(toast);
-      setTimeout(() => toast.remove(), 3000);
+    function toast(msg) {
+      const el = document.createElement('div');
+      el.className = 'toast';
+      el.textContent = msg;
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 3000);
     }
 
-    // ===== INIT =====
+    // INIT
     window.addEventListener('load', () => {
-      const savedUser = localStorage.getItem('satdUser');
-      if (savedUser && REGISTERED_USERS[savedUser]) {
-        appState.currentUser = savedUser;
+      const user = localStorage.getItem('satdUser');
+      if (user && USERS[user]) {
+        app.user = user;
         showScreen('app');
-        initDashboard();
-        document.getElementById('userPill').textContent = `👤 ${savedUser}`;
+        iniciar();
       }
     });
   </script>
